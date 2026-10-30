@@ -1,0 +1,13 @@
+{
+  "name": "viktor-standalone",
+  "version": "1.0.0",
+  "description": "V.I.K.T.O.R. standalone - desktop companion with a built-in brain (Viktor Core: Groq/Ollama, switchable). No Hermes required.",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}

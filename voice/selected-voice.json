@@ -1,0 +1,15 @@
+{
+  "reference": "voice/refs/ref-liam-24k.wav",
+  "reference_source": "Kokoro-82M am_liam (Apache-2.0 license), fully synthetic, unshifted. No real person or character.",
+  "engine": "ResembleAI/chatterbox-turbo (MIT license)",
+  "chosen": "2026-10-30 - user picked the 'American playful' audition sample (vibe-amer.mp3)",
+  "audition_generation": {
+    "path": "onnx-sandbox",
+    "dtype": "quantized",
+    "temperature": 0.8,
+    "top_p": 0.95,
+    "repetition_penalty": 1.2,
+    "sample_rate": 24000
+  },
+  "production_note": "Laptop production uses the SAME engine + config as the audition: Chatterbox-Turbo ONNX, quantized dtype, temp 0.8 / top_p 0.95 / rep-penalty 1.2 (chatterbox_server.py). No torch/CUDA install. Latency on his laptop CPU is unverified until setup runs there; the watcher falls back to pyttsx3 until READY exists."
+}

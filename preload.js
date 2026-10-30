@@ -1,0 +1,23 @@
+const { contextBridge, ipcRenderer } = require('electron');
+contextBridge.exposeInMainWorld('companion', {
+  chat: (messages, sessionKey) => ipcRenderer.invoke('hermes-chat', messages, sessionKey),
+  walk: (dx) => ipcRenderer.invoke('overlay-walk', dx),
+  dragStart: (x, y) => ipcRenderer.send('overlay-drag-start', x, y),
+  dragMove: (x, y) => ipcRenderer.send('overlay-drag-move', x, y),
+  openExternal: (url) => ipcRenderer.invoke('open-external', url),
+  scoutNews: () => ipcRenderer.invoke('scout-news'),
+  cancel: () => ipcRenderer.invoke('hermes-cancel'),
+  models: () => ipcRenderer.invoke('hermes-models'),
+  detectHermes: () => ipcRenderer.invoke('detect-hermes'),
+  getConfig: () => ipcRenderer.invoke('get-config'),
+  onConfigChanged: (cb) => ipcRenderer.on('config-changed', (_e, cfg) => cb(cfg)),
+  setConfig: (c) => ipcRenderer.invoke('set-config', c),
+  openConsole: () => ipcRenderer.invoke('open-console'),
+  toggleVoice: () => ipcRenderer.invoke('toggle-voice'),
+  voiceStatus: () => ipcRenderer.invoke('voice-status'),
+  overlayMenu: () => ipcRenderer.invoke('overlay-menu'),
+  setState: (s) => ipcRenderer.invoke('set-state', s),
+  quit: () => ipcRenderer.invoke('quit'),
+  onChunk: (fn) => { const h = (_e, d) => fn(d); ipcRenderer.on('hermes-chunk', h); return () => ipcRenderer.removeListener('hermes-chunk', h); },
+  onState: (fn) => { const h = (_e, s, reply) => fn(s, reply); ipcRenderer.on('companion-state', h); return () => ipcRenderer.removeListener('companion-state', h); },
+});
